@@ -1,0 +1,20 @@
+to make a docker dev image, cd into the dir where the Dockerfile is, 
+
+we need to build the docker image, e:g
+
+docker build . -t pythontest
+
+then we run it like this :
+
+docker run -it -v $(pwd):/workdir pythontest bash
+
+-it run it interactive
+-v sets current working directory as the volume.  can use home dir instead, this might be more useful
+pythontest is name of the image we just built
+bash is what we want to run
+
+so, :
+docker run -it -v ~:/workdir pythontest bash
+
+
+ultimately might want to alias d to do this
