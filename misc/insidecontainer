@@ -1,0 +1,9 @@
+if doing php
+-----------------
+php bits and bobs  (centos)
+yum install php
+yum install php-common php-cli php-devel
+yum install php-pdo
+yum install php-xml
+
+

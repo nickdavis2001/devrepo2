@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-# following line essential or hangs on tzdata
+# following line essential or hangs prompting for input when installing
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get upgrade -y 
@@ -28,7 +28,7 @@ RUN apt-get -y install git \
 #        sshfs \   #potentially very useful, but not going to use yet
 #        htop \  # nicer top , don't need yet
 #        socat \  # VERY useful debugging tool for use in future, basically socket cat
-#        lxc \  # make your own linux containers - looks v interesting but don't know what would use for right now
+#        lxc \  # make your own linux containers - may be needed for docker on docker
 RUN    apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN echo ": syntax on" >> /home/.vimrc \
@@ -72,3 +72,19 @@ RUN pip install percol==0.2.1 eg==0.1.1 boto3
 # Install vim plugins
 #RUN vim -u /home/.vim_plug -c 'PlugInstall|q!|q!' > /dev/null
 #RUN vam install youcompleteme
+#
+#
+# docker-engine: "The open-source application container engine"
+# docker-compose: "Define and run complex applications using Docker"
+# docker-machine: "Machine management for a container-centric world"
+RUN curl -sSL https://get.docker.com/ | sh && \
+    curl -L https://github.com/docker/compose/releases/download/1.5.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose && \
+    curl -L https://github.com/docker/machine/releases/download/v0.5.5/docker-machine_linux-amd64 > /usr/local/bin/docker-machine && \
+    chmod +x /usr/local/bin/docker*
+
+# Docker-in-docker: https://github.com/jpetazzo/dind
+#ADD wrapdocker /usr/local/bin/wrapdocker
+#RUN chmod +x /usr/local/bin/wrapdocker
+#
+#CMD ["wrapdocker"]
+#
